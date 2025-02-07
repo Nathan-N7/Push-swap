@@ -1,6 +1,20 @@
 #include "push_swap.h"
 #include <stdio.h>
 
+int list_size(t_stack *head)
+{
+    t_stack *tmp;
+    int i;
+
+    tmp = head;
+    while (tmp->next)
+    {
+        tmp = tmp->next;
+        i++;
+    }
+    return (i);
+}
+
 t_stack *creatnode(int   data)
 {
     t_stack *node;
@@ -36,27 +50,24 @@ int main(int argc, char **argv)
 {
     t_stack *stack = NULL;
     char    **nums;
-    t_stack *tmp;
+    int     *arr;
+    int     count;
     int     i;
 
     i = 0;
     if (argc == 2)
     {
+        count = list_size(stack);
+        arr = malloc (count * sizeof(int));
         nums = ft_split(argv[1], ' ');
         while (nums[i])
         {
             addnode(&stack, atoi(nums[i]));
+            arr[i] = atoi(nums[i]);
             i++;
         }
-        tmp = stack;
-        printf("ANTES:\n");
-        while (tmp->next != NULL)
-        {
-            printf("%d ->", tmp->content);
-            tmp = tmp->next;
-        }
-        printf("%d", tmp->content);
-        swap(&stack);
+        RadixSort(&stack, arr, count);
+        /*swap(&stack);
         tmp = stack;
         printf("\n\nDEPOIS:\n");
         while (tmp->next != NULL)
@@ -64,7 +75,7 @@ int main(int argc, char **argv)
             printf("%d ->", tmp->content);
             tmp = tmp->next;
         }
-        printf("%d", tmp->content);
+        printf("%d", tmp->content);*/
     }
     else
         printf("argumentos invalidos");
