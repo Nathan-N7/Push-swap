@@ -14,17 +14,13 @@ int     check(t_stack *head)
     return (1);
 }
 
-void    ()
-{
-    
-}
-
-int *sort(int *arr, int size)
+void    sort(int *arr, int size)
 {
     int temp;
     int i;
     int j;
 
+    i = 0;
     while (i < size)
     {
         j = 0;
@@ -40,20 +36,56 @@ int *sort(int *arr, int size)
         }
         i++;
     }
-    return (arr);
 }
 
-void    RadixSort(t_stack **head, int *arr,int size)
+void    add_index(t_stack *head, int *arr, int size)
 {
-    int count;
     t_stack *tmp;
-    t_stack *b;
+    int     i;
 
-    count = 0;
-    tmp = *head;
-    arr = sort(arr, size);
-    while (count < size)
+    tmp = head;
+    while (tmp)
     {
+        i = 0;
+        while (i < size) {
+            if (tmp->content == arr[i])
+            {
+                tmp->index = i;
+                break;
+            }
+            i++;
+        }
+        tmp = tmp->next;
+    }
+}
 
+void    RadixSort(t_stack **stack_a, int size)
+{
+    t_stack *stack_b = NULL;
+    int max_bits;
+    int i;
+    int j;
+
+    max_bits = 0;
+    i = 0;
+    j = 0;
+    while ((size - 1) >> max_bits)
+        max_bits++;
+    while (i < max_bits)
+    {
+        int num_elements = list_size(*stack_a);
+        if (check(*stack_a))
+            break;
+        while (j < num_elements)
+        {
+            if ((((*stack_a)->index >> i) & 1) == 0)
+                push(stack_a, &stack_b);
+            else
+                rotate(stack_a);
+            j++;
+        }
+        while (stack_b)
+            push(&stack_b, stack_a);
+        i++;
     }
 }

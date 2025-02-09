@@ -1,4 +1,4 @@
-#include "push_swap.c"
+#include "../push_swap.h"
 
 void    push(t_stack **x, t_stack **y)
 {

@@ -6,6 +6,7 @@ int list_size(t_stack *head)
     t_stack *tmp;
     int i;
 
+    i = 0;
     tmp = head;
     while (tmp->next)
     {
@@ -49,6 +50,41 @@ void addnode(t_stack **stack, int data)
 int main(int argc, char **argv)
 {
     t_stack *stack = NULL;
+    char **nums;
+    int *arr;
+    int count;
+    int i = 0;
+
+    if (argc == 2)
+    {
+        nums = ft_split(argv[1], ' ');
+        while (nums[i])
+        {
+            addnode(&stack, atoi(nums[i]));
+            i++;
+        }
+        count = list_size(stack);
+        arr = malloc(count * sizeof(int));
+        i = 0;
+        t_stack *tmp = stack;
+        while (tmp)
+        {
+            arr[i++] = tmp->content;
+            tmp = tmp->next;
+        }
+        sort(arr, count); // Ordena o array
+        add_index(stack, arr, count); // Atribui índices aos números
+        RadixSort(&stack, count); // Ordena a pilha com Radix Sort
+        free(arr);
+    }
+    else
+        printf("Argumentos inválidos\n");
+    return (0);
+}
+
+/*int main(int argc, char **argv)
+{
+    t_stack *stack = NULL;
     char    **nums;
     int     *arr;
     int     count;
@@ -67,17 +103,8 @@ int main(int argc, char **argv)
             i++;
         }
         RadixSort(&stack, arr, count);
-        /*swap(&stack);
-        tmp = stack;
-        printf("\n\nDEPOIS:\n");
-        while (tmp->next != NULL)
-        {
-            printf("%d ->", tmp->content);
-            tmp = tmp->next;
-        }
-        printf("%d", tmp->content);*/
     }
     else
         printf("argumentos invalidos");
     return (0);
-}
+}*/

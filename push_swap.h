@@ -15,6 +15,10 @@ void    ss(t_stack **stack_a, t_stack **stack_b);
 void    rotate(t_stack **stack);
 void    rrotate(t_stack **stack);
 char	**ft_split(char const *str, char c);
-void    RadixSort(t_stack **head, int *arr, int size);
+void    RadixSort(t_stack **head, int size);
+void    add_index(t_stack *head, int *arr, int size);
+void    sort(int *arr, int size);
+int list_size(t_stack *head);
+void    push(t_stack **x, t_stack **y);
 
 #endif
