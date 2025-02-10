@@ -21,5 +21,6 @@ void    sort(int *arr, int size);
 int     list_size(t_stack *head);
 void    push(t_stack **x, t_stack **y);
 int    repetition(t_stack **stack);
+int argumment(char *str);
 
 #endif

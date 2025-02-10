@@ -19,3 +19,17 @@ int    repetition(t_stack **stack)
     }
     return (1);
 }
+
+int argumment(char *str)
+{
+    int i;
+    
+    i = 0;
+    while (str[i])
+    {
+        if (str[i + 1] == ' ')
+            return (0);
+        i++;
+    }
+    return (1);
+}

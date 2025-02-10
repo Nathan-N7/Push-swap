@@ -65,10 +65,13 @@ int main(int argc, char **argv)
     char **nums;
     int *arr;
     int count;
-    int i = -1;
+    int i;
 
+    if (argc == 1)
+        printf("argumentos invalidos");
     if (argc == 2)
     {
+        i = -1;
         nums = ft_split(argv[1], ' ');
         while (nums[++i])
         {
@@ -109,6 +112,48 @@ int main(int argc, char **argv)
         free(arr);
     }
     else
-        printf("Argumentos inválidos\n");
+    {
+        i = 0;
+        while (argv[++i])
+        {
+            if (argumment(argv[i]) == 0)
+            {
+                printf("voce tentou usar lista e numeros soltos ao mesmo tempo");
+                return (0);
+            }
+            addnode(&stack, atoi(argv[i]));
+        }
+        if (repetition(&stack) == 0)
+        {
+            printf("Contem valor repitido");
+            free_nodes(stack);
+            return (0);
+        }
+        count = list_size(stack);
+        arr = malloc(count * sizeof(int));
+        if (!arr)
+        {
+            free_nodes(stack);
+            return (0);
+        }
+        i = 0;
+        t_stack *tmp = stack;
+        while (tmp)
+        {
+            arr[i++] = tmp->content;
+            tmp = tmp->next;
+        }
+        sort(arr, count);
+        add_index(stack, arr, count);
+        RadixSort(&stack, count);
+        tmp = stack;
+        while (tmp)
+        {
+            printf("CONTENT = %d, INDEX = %d\n", tmp->content, tmp->index);
+            tmp = tmp->next;
+        }
+        free_nodes(stack);
+        free(arr);
+    }
     return (0);
 }
