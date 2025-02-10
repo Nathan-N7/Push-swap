@@ -18,7 +18,8 @@ char	**ft_split(char const *str, char c);
 void    RadixSort(t_stack **head, int size);
 void    add_index(t_stack *head, int *arr, int size);
 void    sort(int *arr, int size);
-int list_size(t_stack *head);
+int     list_size(t_stack *head);
 void    push(t_stack **x, t_stack **y);
+int    repetition(t_stack **stack);
 
 #endif

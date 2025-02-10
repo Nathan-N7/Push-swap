@@ -1,6 +1,18 @@
 #include "push_swap.h"
 #include <stdio.h>
 
+void    free_nodes(t_stack  *stack)
+{
+    t_stack *tmp;
+
+    while (stack != NULL)
+    {
+        tmp = stack->next;
+        free(stack);
+        stack = tmp;
+    }
+}
+
 int list_size(t_stack *head)
 {
     t_stack *tmp;
@@ -8,7 +20,7 @@ int list_size(t_stack *head)
 
     i = 0;
     tmp = head;
-    while (tmp->next)
+    while (tmp != NULL)
     {
         tmp = tmp->next;
         i++;
@@ -53,18 +65,30 @@ int main(int argc, char **argv)
     char **nums;
     int *arr;
     int count;
-    int i = 0;
+    int i = -1;
 
     if (argc == 2)
     {
         nums = ft_split(argv[1], ' ');
-        while (nums[i])
+        while (nums[++i])
         {
             addnode(&stack, atoi(nums[i]));
-            i++;
+            free(nums[i]);
         }
+        free(nums);
         count = list_size(stack);
+        if (repetition(&stack) == 0)
+        {
+            printf("Contem valor repitido");
+            free_nodes(stack);
+            return (0);
+        }
         arr = malloc(count * sizeof(int));
+        if (!arr)
+        {
+            free_nodes(stack);
+            return (0);
+        }
         i = 0;
         t_stack *tmp = stack;
         while (tmp)
@@ -72,39 +96,18 @@ int main(int argc, char **argv)
             arr[i++] = tmp->content;
             tmp = tmp->next;
         }
-        sort(arr, count); // Ordena o array
-        add_index(stack, arr, count); // Atribui índices aos números
-        RadixSort(&stack, count); // Ordena a pilha com Radix Sort
+        sort(arr, count);
+        add_index(stack, arr, count);
+        RadixSort(&stack, count);
+        while (stack)
+        {
+            printf("CONTENT = %d, INDEX = %d\n", stack->content, stack->index);
+            stack = stack->next;
+        }
+        free_nodes(stack);
         free(arr);
     }
     else
         printf("Argumentos inválidos\n");
     return (0);
 }
-
-/*int main(int argc, char **argv)
-{
-    t_stack *stack = NULL;
-    char    **nums;
-    int     *arr;
-    int     count;
-    int     i;
-
-    i = 0;
-    if (argc == 2)
-    {
-        count = list_size(stack);
-        arr = malloc (count * sizeof(int));
-        nums = ft_split(argv[1], ' ');
-        while (nums[i])
-        {
-            addnode(&stack, atoi(nums[i]));
-            arr[i] = atoi(nums[i]);
-            i++;
-        }
-        RadixSort(&stack, arr, count);
-    }
-    else
-        printf("argumentos invalidos");
-    return (0);
-}*/
