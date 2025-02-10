@@ -99,10 +99,11 @@ int main(int argc, char **argv)
         sort(arr, count);
         add_index(stack, arr, count);
         RadixSort(&stack, count);
-        while (stack)
+        tmp = stack;
+        while (tmp)
         {
-            printf("CONTENT = %d, INDEX = %d\n", stack->content, stack->index);
-            stack = stack->next;
+            printf("CONTENT = %d, INDEX = %d\n", tmp->content, tmp->index);
+            tmp = tmp->next;
         }
         free_nodes(stack);
         free(arr);
