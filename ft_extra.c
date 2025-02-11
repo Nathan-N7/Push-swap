@@ -55,3 +55,19 @@ int	*add_content(t_stack *stack, int count)
 	}
 	return (arr);
 }
+
+t_stack *min_node(t_stack *stack)
+{
+	long	min;
+	t_stack	*tmp;
+
+	min = 9223372036854775807;
+	tmp = stack;
+	while (tmp)
+	{
+		if (tmp->content < min)
+			min = tmp->content;
+		tmp = tmp->next;
+	}
+	return (tmp);
+}
