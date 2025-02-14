@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   part_main.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/12 12:28:26 by natrodri          #+#    #+#             */
+/*   Updated: 2025/02/12 12:28:28 by natrodri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h>
 
 void	fill_array(t_stack *stack, int *arr, int count)
 {
@@ -15,7 +26,7 @@ void	fill_array(t_stack *stack, int *arr, int count)
 	}
 }
 
-void	print_stack(t_stack *stack)
+/*void	print_stack(t_stack *stack)
 {
 	t_stack	*tmp;
 
@@ -25,7 +36,7 @@ void	print_stack(t_stack *stack)
 		printf("CONTENT = %d, INDEX = %d\n", tmp->content, tmp->index);
 		tmp = tmp->next;
 	}
-}
+}*/
 
 void	allocate_array(int *count, int **arr, t_stack **stack)
 {
@@ -47,19 +58,21 @@ void	single_arg(char *arg, t_stack **stack, int **arr)
 	int		i;
 	char	**nums;
 
-	i = -1;
+	i = 0;
 	nums = ft_split(arg, ' ');
-	while (nums[i + 1] != NULL)
+	while (nums[i] != NULL)
 	{
-		i++;
-		addnode(stack, atoi(nums[i]));
+		if (max_min(ft_atol(nums[i])) == 0)
+			return ;
+		addnode(stack, ft_atol(nums[i]));
 		free(nums[i]);
+		i++;
 	}
 	free(nums);
 	(*stack)->count = list_size(*stack);
 	if (repetition(stack) == 0)
 	{
-		printf("Contem valor repetido\n");
+		write(1, "Error", 6);
 		free_nodes(*stack);
 		stack = NULL;
 		return ;
@@ -74,18 +87,20 @@ void	multiple_arg(int argc, char **argv, t_stack **stack, int **arr)
 	i = 0;
 	while (++i < argc)
 	{
-		if (argumment(argv[i]) == 0)
+		if (invalid_arg(argv[i]) == 0)
 		{
-			printf("voce tentou usar lista e numeros soltos ao mesmo tempo\n");
+			write (1, "Error", 6);
 			free_nodes(*stack);
 			*stack = NULL;
 			return ;
 		}
-		addnode(stack, atoi(argv[i]));
+		if (max_min(ft_atol(argv[i])) == 0)
+			return ;
+		addnode(stack, ft_atoi(argv[i]));
 	}
 	if (repetition(stack) == 0)
 	{
-		printf("Contem valor repetido\n");
+		write (1, "Error", 6);
 		free_nodes(*stack);
 		*stack = NULL;
 		return ;

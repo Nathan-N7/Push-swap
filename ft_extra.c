@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_extra.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/12 12:28:11 by natrodri          #+#    #+#             */
+/*   Updated: 2025/02/12 17:54:12 by natrodri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	repetition(t_stack **stack)
@@ -20,7 +32,7 @@ int	repetition(t_stack **stack)
 	return (1);
 }
 
-int	argumment(char *str)
+int	invalid_arg(char *str)
 {
 	int	i;
 
@@ -56,7 +68,7 @@ int	*add_content(t_stack *stack, int count)
 	return (arr);
 }
 
-t_stack *min_node(t_stack *stack)
+t_stack	*min_node(t_stack *stack)
 {
 	long	min;
 	t_stack	*tmp;
@@ -70,4 +82,14 @@ t_stack *min_node(t_stack *stack)
 		tmp = tmp->next;
 	}
 	return (tmp);
+}
+
+int	max_min(long val)
+{
+	if (val > 2147483647 || val < -2147483648)
+	{
+		write (1, "Error", 6);
+		return (0);
+	}
+	return (1);
 }

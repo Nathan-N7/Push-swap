@@ -1,32 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   ft_extra2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 12:28:54 by natrodri          #+#    #+#             */
-/*   Updated: 2025/02/14 04:08:30 by natrodri         ###   ########.fr       */
+/*   Created: 2025/02/14 03:57:09 by natrodri          #+#    #+#             */
+/*   Updated: 2025/02/14 03:58:43 by natrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../push_swap.h"
+#include "push_swap.h"
 
-void	rotate(t_stack **stack)
+int	find_min(t_stack **stack)
 {
-	t_stack	*last;
+	int		min;
 	t_stack	*tmp;
 
-	write (1, "rotate", 7);
-	write (1, "\n", 2);
-	if (!(*stack) || !(*stack)->next || !(*stack)->next->next)
-		return ;
-	last = *stack;
+	min = (*stack)->index;
 	tmp = *stack;
-	while (last->next)
-		last = last->next;
-	*stack = tmp->next;
-	tmp->previous = last;
-	last->next = tmp;
-	tmp->next = NULL;
+	while (tmp)
+	{
+		if (tmp->index < min)
+			min = tmp->index;
+		tmp = tmp->next;
+	}
+	return (min);
+}
+
+int	get_position(t_stack **stack, int index)
+{
+	int		pos;
+	t_stack	*tmp;
+
+	pos = 0;
+	tmp = *stack;
+	while (tmp)
+	{
+		if (tmp->index == index)
+			return (pos);
+		pos++;
+		tmp = tmp->next;
+	}
+	return (-1);
 }

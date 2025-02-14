@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: natrodri <natrodri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/12 12:27:43 by natrodri          #+#    #+#             */
+/*   Updated: 2025/02/14 02:23:14 by natrodri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-#include <stdio.h>
 
 void	free_nodes(t_stack *stack)
 {
@@ -67,19 +78,18 @@ int	main(int argc, char **argv)
 
 	stack_b = NULL;
 	stack = NULL;
-	if (argc == 1)
-	{
-		printf("argumentos invalidos\n");
-		return (0);
-	}
+	if (argc == 1 || (argc == 2 && !argv[1][0]))
+		return (1);
 	if (argc == 2)
 		single_arg(argv[1], &stack, &arr);
 	else
 		multiple_arg(argc, argv, &stack, &arr);
 	if (!stack)
 		return (0);
-	radix_sort(&stack, stack_b, stack->count);
-	print_stack(stack);
+	if (stack->count >= 6)
+		radix_sort(&stack, stack_b, stack->count);
+	else
+		smallsort(&stack, &stack_b, stack->count);
 	free_nodes(stack);
 	free(arr);
 	return (0);
